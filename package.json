@@ -1,0 +1,59 @@
+{
+  "name": "video-compress",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Manas Kushwaha",
+  "keywords": [
+    "Free Video Compressor",
+    "Video Converter",
+    "Video Compression Tool",
+    "High-Quality Video Compression",
+    "Shrink Video File Size"
+  ],
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "xyz.pranavp.videocompress",
+    "productName": "Video Compress",
+    "copyright": "",
+    "extraResources": [
+      {
+        "from": "ffmpeg/",
+        "to": "ffmpeg/",
+        "filter": ["**/*"]
+      }
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "ffmpeg-utils.js",
+      "renderer.js",
+      "styles.css",
+      "index.html"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}

@@ -1,0 +1,55 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Build outputs
+/dist
+/build
+/out
+
+# Electron builder artifacts
+*.blockmap
+latest.yml
+builder-debug.yml
+builder-effective-config.yaml
+
+# Package managers (optional — remove if you want to lock files committed)
+# Uncomment the one you don't use:
+# yarn.lock
+# pnpm-lock.yaml
+
+# FFmpeg binaries (too large for GitHub — ~425MB total)
+/ffmpeg/*
+!/ffmpeg/README.md
+
+# Old web app assets (leftover from previous Next.js version)
+/public/
+
+# AI tool configs & local artifacts
+.claude/
+.claw/
+.claw.json
+AGENTS.md
+CLAUDE.md
+CLAW.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.*.local
