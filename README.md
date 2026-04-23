@@ -63,16 +63,6 @@ FFmpeg binaries are **not included** in this repository because they are too lar
 npm run dev
 ```
 
-## Building
-
-Build for Windows:
-
-```bash
-npm run build:win
-```
-
-Build outputs will appear in the `dist/` folder.
-
 ## Project Structure
 
 ```
