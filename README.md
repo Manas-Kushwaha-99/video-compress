@@ -47,8 +47,11 @@ npm install
 
 FFmpeg binaries are **not included** in this repository because they are too large for GitHub.
 
-1. Download FFmpeg for Windows: https://ffmpeg.org/download.html
-2. Place the binaries in the `ffmpeg/` folder:
+1. Go to https://www.gyan.dev/ffmpeg/builds/
+2. Under **Release builds**, download `ffmpeg-release-essentials.zip`
+3. Extract the ZIP file
+4. Open the extracted folder, then go to the `bin/` folder
+5. Copy these two files into your project's `ffmpeg/` folder:
    - `ffmpeg.exe`
    - `ffprobe.exe`
 
