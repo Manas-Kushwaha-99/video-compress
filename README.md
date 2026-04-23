@@ -15,9 +15,8 @@ A free, offline desktop video compression app built with Electron. Shrink video 
 
 ## Screenshots
 
-> _Add your screenshots here. Recommended: drag and drop images directly into the GitHub README editor after pushing._
-
-<!-- ![App Screenshot](./screenshots/app.png) -->
+<img width="1189" height="776" alt="image" src="https://github.com/user-attachments/assets/fbd27187-87f7-4eb7-b085-637c2de1553c" />
+<img width="1169" height="772" alt="image" src="https://github.com/user-attachments/assets/d03df789-a3fc-44be-9b16-f7815cf6307c" />
 
 ## Download
 
