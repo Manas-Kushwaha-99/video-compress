@@ -45,6 +45,68 @@ let outputFilePath = null;
 let videoDuration = 0;
 let videoBitrate = 0;
 
+const CORNER_COORDS = new Set(["0,0", "0,4", "4,0", "4,4"]);
+const BASE_OPACITY = 0.08;
+const PULSE_CORE = 0.95;
+const PULSE_RING = 0.44;
+const CYCLE_MS = 1400;
+
+function initHeartPulse() {
+  const grid = document.getElementById("dmxGrid");
+  if (!grid) return () => {};
+
+  const dots = [];
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      const dot = document.createElement("span");
+      dot.className = "dmx-dot";
+      const key = `${row},${col}`;
+      if (CORNER_COORDS.has(key)) {
+        dot.classList.add("dmx-inactive");
+      }
+      grid.appendChild(dot);
+      dots.push({ el: dot, row, col });
+    }
+  }
+
+  const start = performance.now();
+  let rafId = 0;
+
+  function tick(now) {
+    const elapsed = ((now - start) % CYCLE_MS + CYCLE_MS) % CYCLE_MS;
+    const phase = elapsed / CYCLE_MS;
+
+    const beat = Math.sin(phase * Math.PI * 2);
+    const spike = Math.sin(phase * Math.PI * 4);
+    const pulse = Math.max(0, beat) + Math.max(0, spike) * 0.55;
+
+    for (const { el, row, col } of dots) {
+      if (CORNER_COORDS.has(`${row},${col}`)) continue;
+
+      const x = col - 2;
+      const y = row - 2;
+      const radius = Math.hypot(x, y);
+
+      let opacity;
+      if (radius < 0.55) {
+        opacity = Math.min(1, 0.35 + pulse * PULSE_CORE);
+      } else if (radius < 1.65) {
+        opacity = 0.16 + pulse * PULSE_RING;
+      } else {
+        opacity = BASE_OPACITY + pulse * 0.08;
+      }
+
+      el.style.opacity = Math.round(opacity * 1e6) / 1e6;
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  rafId = requestAnimationFrame(tick);
+
+  return () => cancelAnimationFrame(rafId);
+}
+
 function bytesToSize(bytes) {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes === 0) return "0 Byte";
@@ -85,6 +147,7 @@ function showSection(section) {
 }
 
 async function init() {
+  const stopHeartPulse = initHeartPulse();
   const systemInfo = await window.electronAPI.getSystemInfo();
 
   if (systemInfo.ffmpegAvailable) {
@@ -95,7 +158,11 @@ async function init() {
     ffmpegStatus.textContent = "FFmpeg Missing";
   }
 
-
+  const loadingScreen = document.getElementById("loadingScreen");
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  stopHeartPulse();
+  loadingScreen.classList.add("hidden");
+  setTimeout(() => loadingScreen.remove(), 500);
 }
 
 async function handleFileSelect() {

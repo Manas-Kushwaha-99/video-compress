@@ -736,3 +736,78 @@ body {
     padding: 1rem;
   }
 }
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.dmx-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  --dmx-cycle: 1400ms;
+  --dmx-opacity-base: 0.08;
+  --dmx-opacity-mid: 0.32;
+  --dmx-opacity-peak: 1;
+}
+
+.dmx-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.dmx-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  display: block;
+  background: var(--accent-primary);
+  opacity: 0.08;
+  transform-origin: center;
+  will-change: opacity;
+  transition: opacity 0.08s ease;
+}
+
+.dmx-dot.dmx-inactive {
+  opacity: 0 !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-text {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  animation: textFade 1.5s ease-in-out infinite;
+}
+
+@keyframes textFade {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
